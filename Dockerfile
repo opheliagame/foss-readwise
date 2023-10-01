@@ -5,7 +5,7 @@ FROM debian:latest AS build-env
 RUN apt-get update
 RUN apt-get install -y curl git unzip
 
-RUN useradd -ms /bin/bash user
+RUN groupadd -r user && adduser -r -g user user
 USER user
 WORKDIR /home/user
 
@@ -35,6 +35,8 @@ RUN flutter pub get
 RUN flutter build web
 
 # once heare the app will be compiled and ready to deploy
+
+USER root
 
 # use nginx to deploy
 FROM nginx:1.25.2-alpine

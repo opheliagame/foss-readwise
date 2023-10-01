@@ -5,7 +5,8 @@ FROM debian:latest AS build-env
 RUN apt-get update
 RUN apt-get install -y curl git unzip
 
-RUN groupadd -r user && adduser -r -g user user
+RUN groupadd -r user 
+RUN adduser -r -g user user
 USER user
 WORKDIR /home/user
 

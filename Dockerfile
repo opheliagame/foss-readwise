@@ -10,7 +10,7 @@ USER user
 WORKDIR /home/user
 
 # define variables
-ARG APP=/app/
+ARG APP=/home/user/app/
 
 #clone flutter
 RUN git clone https://github.com/flutter/flutter.git 

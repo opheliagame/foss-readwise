@@ -31,7 +31,6 @@ COPY . $APP
 # stup new folder as the working directory
 WORKDIR $APP
 
-USER root
 
 # Run build: 1 - clean, 2 - pub get, 3 - build web
 RUN flutter clean
@@ -40,6 +39,7 @@ RUN flutter build web
 
 # once heare the app will be compiled and ready to deploy
 
+USER root
 
 # use nginx to deploy
 FROM nginx:1.25.2-alpine

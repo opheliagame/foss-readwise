@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get install -y curl git unzip
 
 RUN groupadd -r user 
-RUN useradd -ms user
+RUN useradd -ms /bin/bash user
 USER user
 WORKDIR /home/user
 

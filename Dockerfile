@@ -18,6 +18,8 @@ RUN git clone https://github.com/flutter/flutter.git
 # setup the flutter path as an enviromental variable
 ENV PATH="$PATH:/home/user/flutter/bin"
 
+RUN git config --global --add safe.directory /home/user/flutter
+
 # Start to run Flutter commands
 # doctor to see if all was installes ok
 RUN flutter doctor -v

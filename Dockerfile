@@ -35,6 +35,7 @@ RUN chown user:user $APP
 
 # Run build: 1 - clean, 2 - pub get, 3 - build web
 RUN flutter clean
+RUN flutter pub cache repair
 RUN flutter pub get
 RUN flutter build web
 

@@ -31,6 +31,7 @@ COPY . $APP
 # stup new folder as the working directory
 WORKDIR $APP
 
+RUN chown user:user $APP
 
 # Run build: 1 - clean, 2 - pub get, 3 - build web
 RUN flutter clean

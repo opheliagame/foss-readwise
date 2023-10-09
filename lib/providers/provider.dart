@@ -47,6 +47,22 @@ final annotationsProvider = StreamProvider<List<AnnotationState>>((ref) {
 final selectedSourceProvider =
     StateProvider<AnnotationSourceState?>((ref) => null);
 
+final filterSourceNameProvider = StateProvider<String>((ref) => '');
+
+final filteredSourcesProvider = Provider<List<AnnotationSourceState>>((ref) {
+  final sources = ref.watch(sourcesProvider);
+  final filterName = ref.watch(filterSourceNameProvider);
+  if (filterName.isEmpty) {
+    return sources.value ?? [];
+  }
+
+  return sources.value
+          ?.where((element) =>
+              element.name.toLowerCase().contains(filterName.toLowerCase()))
+          .toList() ??
+      [];
+});
+
 final filteredAnnotationsProvider =
     Provider<List<AnnotationListViewState>>((ref) {
   final annotations = ref.watch(annotationsProvider);

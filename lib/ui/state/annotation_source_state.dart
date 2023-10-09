@@ -10,7 +10,14 @@ class AnnotationSourceState with _$AnnotationSourceState {
   const factory AnnotationSourceState({
     String? id,
     required String name,
+    required String url,
   }) = _AnnotationSourceState;
 
-  AnnotationSourceDto get dto => AnnotationSourceDto(id: id, name: name);
+  AnnotationSourceDto get dto =>
+      AnnotationSourceDto(id: id, name: name, url: url);
+
+  @override
+  String toString() {
+    return name;
+  }
 }

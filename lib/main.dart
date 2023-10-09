@@ -20,6 +20,13 @@ class MyApp extends StatelessWidget {
       title: 'Foss Readwise',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        inputDecorationTheme: const InputDecorationTheme(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFD9D9D9), width: 0.0),
+          ),
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+        ),
         useMaterial3: true,
       ),
       home: const Dashboard(),

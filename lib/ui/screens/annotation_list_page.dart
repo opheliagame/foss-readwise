@@ -16,9 +16,14 @@ class AnnotationListPage extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            TextFormField(
-              decoration:
-                  const InputDecoration(hintText: 'Search your annotations..'),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+              child: TextFormField(
+                style: Theme.of(context).textTheme.bodyMedium,
+                decoration: const InputDecoration(
+                    hintText: 'Search your annotations..'),
+              ),
             ),
             Expanded(
               child: ListView.builder(
@@ -27,26 +32,35 @@ class AnnotationListPage extends ConsumerWidget {
                     final item = annotations[index];
 
                     return Card(
+                      margin: const EdgeInsets.only(top: 0.5),
                       elevation: 0.0,
                       surfaceTintColor: null,
                       child: InkWell(
                         onTap: () {
-                          // TODO: define tap action
+                          // TODO: route to annotation view screen
                         },
                         child: Container(
                           padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(),
+                          decoration: const BoxDecoration(
+                            border: Border(
+                                top: BorderSide(
+                                    width: 1.0, color: Color(0xFFD9D9D9)),
+                                bottom: BorderSide(
+                                    width: 1.0, color: Color(0xFFD9D9D9))),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SourceTile(name: item.source.name),
-                                  Text(item.annotation.text),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SourceTile(name: item.source.name),
+                                    Text(
+                                      item.annotation.text,
+                                    ),
+                                  ],
+                                ),
                               ),
                               IconButton(
                                 iconSize: 24,

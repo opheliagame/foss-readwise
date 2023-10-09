@@ -78,6 +78,11 @@ class Dashboard extends ConsumerWidget {
           ],
         ),
       ),
+
+      // TODO: when implementing routing
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      // ),
     );
   }
 }

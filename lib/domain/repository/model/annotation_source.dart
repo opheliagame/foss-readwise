@@ -16,6 +16,7 @@ class AnnotationSource with _$AnnotationSource {
   factory AnnotationSource({
     @JsonKey(includeToJson: false) DocumentReference? ref,
     required String name,
+    required String url,
   }) = _AnnotationSource;
 
   factory AnnotationSource.fromJson(Map<String, dynamic> json) =>
@@ -25,5 +26,6 @@ class AnnotationSource with _$AnnotationSource {
       AnnotationSource.fromJson(snapshot.data() as Map<String, dynamic>)
           .copyWith(ref: snapshot.reference);
 
-  AnnotationSourceDto get dto => AnnotationSourceDto(id: ref?.id, name: name);
+  AnnotationSourceDto get dto =>
+      AnnotationSourceDto(id: ref?.id, name: name, url: url);
 }

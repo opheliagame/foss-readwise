@@ -8,7 +8,7 @@ part 'annotation_create_state.freezed.dart';
 class AnnotationCreateState with _$AnnotationCreateState {
   factory AnnotationCreateState({
     @Default(AnnotationState(text: '')) AnnotationState annotation,
-    @Default(AnnotationSourceState(name: ''))
+    @Default(AnnotationSourceState(name: '', url: ''))
     AnnotationSourceState annotationSource,
   }) = _AnnotationCreateState;
 }

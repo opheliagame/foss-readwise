@@ -11,9 +11,11 @@ class AnnotationSourceDto with _$AnnotationSourceDto {
   factory AnnotationSourceDto({
     String? id,
     required String name,
+    required String url,
   }) = _AnnotationSourceDto;
 
-  AnnotationSource get entity => AnnotationSource(name: name);
+  AnnotationSource get entity => AnnotationSource(name: name, url: url);
 
-  AnnotationSourceState get state => AnnotationSourceState(id: id, name: name);
+  AnnotationSourceState get state =>
+      AnnotationSourceState(id: id, name: name, url: url);
 }

@@ -28,6 +28,11 @@ class AnnotationCreateViewModel extends StateNotifier<AnnotationCreateState> {
         annotationSource: state.annotationSource.copyWith(name: sourceName));
   }
 
+  void setSourceUrl(String sourceUrl) {
+    state = state.copyWith(
+        annotationSource: state.annotationSource.copyWith(url: sourceUrl));
+  }
+
   Future<Result<void>> save() {
     return Result.guardFuture(() async {
       return saveAnnotationUsecase

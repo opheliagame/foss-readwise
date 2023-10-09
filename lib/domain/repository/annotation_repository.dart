@@ -1,5 +1,4 @@
 import 'package:my_readwise/domain/repository/model/annotation.dart';
-import 'package:my_readwise/domain/repository/model/annotation_source.dart';
 import 'package:my_readwise/domain/result.dart';
 
 abstract class AnnotationRepository {
@@ -7,7 +6,7 @@ abstract class AnnotationRepository {
 
   // Future<Annotation?> fetchOne(int id);
 
-  Future<Result<void>> create(Annotation annotation, AnnotationSource source);
+  Future<Result<void>> create(Annotation annotation);
 
   // int save(Annotation annotation);
 

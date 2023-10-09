@@ -22,9 +22,8 @@ class AnnotationListViewModel
     final result = fetchAnnotationUsecase.fetch();
     result.when(
       success: (data) async {
-        final list =
-            await data.map((list) => list.map((e) => e.state).toList());
-        state = AsyncData([]);
+        final list = data.map((list) => list.map((e) => e.state).toList());
+        state = const AsyncData([]);
       },
       failure: (error, stack) {
         state = AsyncError(error, stack);

@@ -9,6 +9,7 @@ import 'package:my_readwise/infrastructure/usecase/save_annotation_usecase_impl.
 import 'package:my_readwise/ui/screens/annotation_create_view_model.dart';
 import 'package:my_readwise/ui/screens/annotation_list_view_model.dart';
 import 'package:my_readwise/ui/state/annotation_create_state.dart';
+import 'package:my_readwise/ui/state/annotation_list_view_state.dart';
 import 'package:my_readwise/ui/state/annotation_source_state.dart';
 import 'package:my_readwise/ui/state/annotation_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -46,17 +47,28 @@ final annotationsProvider = StreamProvider<List<AnnotationState>>((ref) {
 final selectedSourceProvider =
     StateProvider<AnnotationSourceState?>((ref) => null);
 
-final filteredAnnotationsProvider = Provider<List<AnnotationState>>((ref) {
+final filteredAnnotationsProvider =
+    Provider<List<AnnotationListViewState>>((ref) {
   final annotations = ref.watch(annotationsProvider);
+  final sources = ref.watch(sourcesProvider);
   final selectedSource = ref.watch(selectedSourceProvider);
 
-  if (selectedSource == null) {
-    return annotations.value ?? [];
-  }
-  return annotations.value
-          ?.where((element) => element.sourceId == selectedSource.id)
-          .toList() ??
-      [];
+  final listView = annotations.value?.map((annotation) {
+    final source =
+        sources.value?.firstWhere((e) => e.id == annotation.sourceId);
+    assert(source != null);
+
+    return AnnotationListViewState(annotation: annotation, source: source!);
+  }).toList();
+
+  // TODO: redefine filtered annotations using search and filter function
+  // if (selectedSource == null) {
+  return listView ?? [];
+  // }
+  // return listView
+  //         ?.where((element) => element.annotation.sourceId == selectedSource.id)
+  //         .toList() ??
+  //     [];
 });
 
 final sourcesProvider = StreamProvider<List<AnnotationSourceState>>((ref) {

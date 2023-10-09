@@ -6,7 +6,7 @@ import 'package:my_readwise/providers/repository.dart';
 
 class DeleteAnnotationUsecaseImpl implements DeleteAnnotationUsecase {
   DeleteAnnotationUsecaseImpl(this._ref);
-  DeleteAnnotationUsecaseRef _ref;
+  final DeleteAnnotationUsecaseRef _ref;
 
   late final AnnotationRepository annotationRepository =
       _ref.read(annotationRepositoryProvider);

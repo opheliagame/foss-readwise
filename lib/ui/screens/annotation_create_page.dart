@@ -15,20 +15,21 @@ class _AnnotationCreatePageState extends ConsumerState<AnnotationCreatePage> {
   final textEditingController = TextEditingController();
   final sourceNameTextEditingController = TextEditingController();
   final sourceUrlTextEditingController = TextEditingController();
-  // AnnotationSource? selectedAnnotationSource;
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(annotationCreateViewModelProvider);
     final source = ref.watch(sourcesProvider);
     final viewModel = ref.watch(annotationCreateViewModelProvider.notifier);
 
     textEditingController.addListener(() {
       viewModel.setText(textEditingController.text);
     });
+    sourceNameTextEditingController.addListener(() {
+      viewModel.setSourceName(sourceNameTextEditingController.text);
+    });
 
     return source.when(
-      loading: () => CircularProgressIndicator(),
+      loading: () => const CircularProgressIndicator(),
       error: (error, stack) => Text(error.toString()),
       data: (sourcesData) {
         return Scaffold(
@@ -51,6 +52,8 @@ class _AnnotationCreatePageState extends ConsumerState<AnnotationCreatePage> {
                       ),
 
                       DropdownMenu(
+                        controller: sourceNameTextEditingController,
+                        enableSearch: true,
                         dropdownMenuEntries: List.generate(
                           sourcesData.length,
                           (index) {
@@ -129,7 +132,9 @@ class _AnnotationCreatePageState extends ConsumerState<AnnotationCreatePage> {
                       // ),
                       TextButton(
                           onPressed: () async {
-                            viewModel.save();
+                            if (_formKey.currentState!.validate()) {
+                              viewModel.save();
+                            }
                           },
                           child: const Text('submit'))
                     ],

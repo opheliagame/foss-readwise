@@ -28,13 +28,13 @@ class AnnotationSourceRepositoryImpl implements AnnotationSourceRepository {
   //   return result;
   // }
 
-  // @override
-  // Future<int> create(AnnotationSource annotation) {
-  //   return isar.writeTxn(() {
-  //     final result = isar.annotationSources.put(annotation);
-  //     return result;
-  //   });
-  // }
+  @override
+  Future<Result<DocumentReference>> create(AnnotationSource source) {
+    return Result.guardFuture(() async {
+      final ref = await db.collection('sources').add(source.toJson());
+      return ref;
+    });
+  }
 
   // @override
   // Future<bool> delete(int id) {

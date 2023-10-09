@@ -18,7 +18,6 @@ class _AnnotationCreatePageState extends ConsumerState<AnnotationCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(annotationCreateViewModelProvider);
     final source = ref.watch(sourcesProvider);
     final viewModel = ref.watch(annotationCreateViewModelProvider.notifier);
 

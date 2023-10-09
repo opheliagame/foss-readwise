@@ -6,31 +6,16 @@ import 'package:my_readwise/ui/state/annotation_create_state.dart';
 import 'package:my_readwise/ui/state/annotation_source_state.dart';
 
 class AnnotationCreateViewModel extends StateNotifier<AnnotationCreateState> {
-  StateNotifierProviderRef _ref;
+  final StateNotifierProviderRef _ref;
   AnnotationCreateViewModel({required StateNotifierProviderRef ref})
       : _ref = ref,
-        super(AnnotationCreateState()) {
-    // load();
-  }
+        super(AnnotationCreateState());
 
   late final SaveAnnotationUsecase saveAnnotationUsecase =
       _ref.read(saveAnnotationUsecaseProvider);
 
-  // Future<void> load() async {
-  //   state = AsyncValue.data(AnnotationState(
-  //     text: '',
-  //   ));
-  // }
-
   void setText(String text) {
     state = state.copyWith(annotation: state.annotation.copyWith(text: text));
-
-    // if (state.valueOrNull == null) return;
-    // state = AsyncValue.data(state.value!.copyWith(text: text));
-  }
-
-  void setSource(AnnotationSourceState source) {
-    state = state.copyWith(annotationSource: source);
   }
 
   void setSourceId(AnnotationSourceState source) {
@@ -38,11 +23,23 @@ class AnnotationCreateViewModel extends StateNotifier<AnnotationCreateState> {
         annotation: state.annotation.copyWith(sourceId: source.id));
   }
 
+  void setSourceName(String sourceName) {
+    state = state.copyWith(
+        annotationSource: state.annotationSource.copyWith(name: sourceName));
+  }
+
   Future<Result<void>> save() {
     return Result.guardFuture(() async {
       return saveAnnotationUsecase
-          .save(state.annotation.dto, state.annotationSource.dto)
-          .then((value) => value.dataOrThrow);
+          .save(
+              annotation: state.annotation.dto,
+              source: state.annotation.sourceId != null
+                  ? null
+                  : state.annotationSource.dto)
+          .then((value) {
+        _ref.invalidateSelf();
+        return value.dataOrThrow;
+      });
     });
   }
 }

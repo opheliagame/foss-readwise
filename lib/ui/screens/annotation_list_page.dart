@@ -22,40 +22,12 @@ class AnnotationListPage extends ConsumerWidget {
                 animationEnabled: false,
               )),
           child: MultiSplitView(
-            children: [
+            children: const [
               AnnotationSourceList(),
               AnnotationList(),
             ],
           ),
         ),
-      ),
-    );
-
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-            // children: [
-            //   annotations.when(
-            //     data: (data) {
-            //       return ListView.builder(
-            //         shrinkWrap: true,
-            //         itemCount: data.length,
-            //         itemBuilder: (context, index) {
-            //           final item = data[index];
-
-            //         },
-            //       );
-            //     },
-            //     error: (error, stack) => Text(error.toString()),
-            //     loading: () => const CircularProgressIndicator(),
-            //   ),
-            //   TextButton(
-            //       onPressed: () {
-            //         Navigator.pop(context);
-            //       },
-            //       child: Text('go back'))
-            // ],
-            ),
       ),
     );
   }
@@ -69,8 +41,6 @@ class AnnotationList extends ConsumerWidget {
     final state = ref.watch(filteredAnnotationsProvider);
     final viewModel = ref.watch(annotationListViewModelProvider.notifier);
 
-    // return state.when(
-    //     data: (data) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: state.length,
@@ -86,37 +56,7 @@ class AnnotationList extends ConsumerWidget {
               },
             ),
           );
-
-          return Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Text(item.source.value?.name ?? ''),
-                SelectableText(item.text),
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          viewModel.delete(item);
-
-                          // ref
-                          //     .watch(annotationRepositoryProvider)
-                          //     .whenData((value) async {
-                          //   final result =
-                          //       await value.delete(item.id);
-                          //   print(result);
-                          // });
-                        },
-                        icon: const Icon(Icons.delete)),
-                  ],
-                ),
-              ],
-            ),
-          );
         });
-    // },
-    // error: (error, stack) => Text(error.toString()),
-    // loading: () => CircularProgressIndicator());
   }
 }
 
@@ -147,36 +87,9 @@ class AnnotationSourceList extends ConsumerWidget {
                     });
                   },
                 );
-
-                return Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Text(item.source.value?.name ?? ''),
-                      SelectableText(item.name),
-                      Row(
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                // viewModel.delete(item);
-
-                                // ref
-                                //     .watch(annotationRepositoryProvider)
-                                //     .whenData((value) async {
-                                //   final result =
-                                //       await value.delete(item.id);
-                                //   print(result);
-                                // });
-                              },
-                              icon: const Icon(Icons.delete)),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
               });
         },
         error: (error, stack) => Text(error.toString()),
-        loading: () => CircularProgressIndicator());
+        loading: () => const CircularProgressIndicator());
   }
 }

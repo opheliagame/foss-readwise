@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_readwise/domain/repository/annotation_repository.dart';
 import 'package:my_readwise/domain/repository/model/annotation.dart';
-import 'package:my_readwise/domain/repository/model/annotation_source.dart';
 import 'package:my_readwise/domain/result.dart';
 import 'package:my_readwise/providers/provider.dart';
 
@@ -38,12 +37,14 @@ class AnnotationRepositoryImpl implements AnnotationRepository {
   // }
 
   @override
-  Future<Result<void>> create(Annotation annotation, AnnotationSource notused) {
+  Future<Result<void>> create(Annotation annotation) {
     return Result.guardFuture(() async {
-      print(annotation.sourceId);
+      assert(annotation.sourceId != null);
+
       final ref = db.collection('sources').doc(annotation.sourceId);
 
-      final doc = await db.collection('annotations').add(annotation.toMap(ref));
+      await db.collection('annotations').add(annotation.toMap(ref));
+
       return;
     });
   }
@@ -59,7 +60,7 @@ class AnnotationRepositoryImpl implements AnnotationRepository {
   @override
   Future<Result<void>> delete(String id) {
     return Result.guardFuture(() async {
-      final doc = await db.collection('annotations').doc(id).delete();
+      await db.collection('annotations').doc(id).delete();
       return;
     });
   }

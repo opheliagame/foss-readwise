@@ -17,6 +17,8 @@ class AnnotationRepositoryImpl implements AnnotationRepository {
       // final querySnapshot = await db.collection('annotations').get();
       final stream = db
           .collection('annotations')
+          // TODO: order by date of create
+          // .orderBy('created', descending: true)
           .snapshots()
           .map((snapshot) => snapshot.docs.map((doc) {
                 return Annotation.fromSnapshot(doc);
